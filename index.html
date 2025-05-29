@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CriptoRadar - Visualizador de Criptomoedas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js e plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <!-- Plugin de zoom e movimentação -->
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fab fa-bitcoin"></i> CriptoRadar</h1>
+            <p>Visualizador de Dados de Criptomoedas em Tempo Real</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar criptomoeda...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="refresh-container">
+                <span id="lastUpdated">Última atualização: --:--:--</span>
+                <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Atualizar Dados</button>
+                <select id="currencySelect">
+                    <option value="usd">USD</option>
+                    <option value="brl" selected>BRL</option>
+                    <option value="eur">EUR</option>
+                </select>
+               
+            </div>
+        </section>
+
+        <section class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Carregando dados...</p>
+        </section>
+
+        <section class="error-container" id="errorContainer">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p id="errorMessage">Ocorreu um erro ao carregar os dados.</p>
+            <button id="retryBtn">Tentar Novamente</button>
+        </section>
+
+        <section class="crypto-grid" id="cryptoGrid">
+            <!-- Os cards de criptomoedas serão inseridos aqui via JavaScript -->
+        </section>
+    </main>
+
+    <!-- Modal de Gráficos -->
+    <div id="chartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="chartTitle">Gráfico</h2>
+                <div class="chart-controls">
+                    <select id="timeframeSelect">
+                        <option value="1">1 dia</option>
+                        <option value="7" selected>7 dias</option>
+                        <option value="30">30 dias</option>
+                        <option value="90">3 meses</option>
+                        <option value="365">1 ano</option>
+                        <option value="max">Máximo</option>
+                    </select>
+                    <select id="chartTypeSelect">
+                        <option value="line" selected>Linha</option>
+                        <!-- <option value="candlestick">Velas</option> -->
+                    </select>
+                    <button id="indicatorsBtn" class="indicators-btn">
+                        <i class="fas fa-sliders-h"></i> Indicadores
+                    </button>
+                    <div id="indicatorsMenu" class="indicators-menu">
+                        <div class="indicator-option">
+                            <input type="checkbox" id="maCheckbox">
+                            <label for="maCheckbox">Média Móvel (MA)</label>
+                        </div>
+                        <div class="indicator-option">
+                            <input type="checkbox" id="bbCheckbox">
+                            <label for="bbCheckbox">Bandas de Bollinger</label>
+                        </div>
+                        <!-- Removida a opção de volume -->
+                    </div>
+                    <button id="closeChartBtn" class="close-btn">&times;</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="chartCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Desenvolvido para Avaliação Prática em JavaScript - FATEC</p>
+            <p>Dados fornecidos pela <a href="https://www.coingecko.com/en/api" target="_blank">CoinGecko API</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

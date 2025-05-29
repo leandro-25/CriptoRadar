@@ -1,0 +1,1208 @@
+/* Estilos Gerais e Reset */
+/* O seletor universal (*) aplica estes estilos a TODOS os elementos HTML na página. */
+* {
+    margin: 0; /* Remove todas as margens externas padrão do navegador. */
+    padding: 0; /* Remove todas as margens internas (preenchimento) padrão do navegador. */
+    box-sizing: border-box; /* Altera o modelo de caixa CSS. Padding e border são incluídos na largura e altura total do elemento, em vez de serem adicionados a elas. */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Define uma lista de fontes preferenciais. O navegador usará a primeira fonte disponível na lista. */
+}
+
+/* :root é um pseudo-elemento que representa o elemento raiz do documento (geralmente <html>).
+   É usado aqui para declarar variáveis CSS globais (custom properties). */
+:root {
+    /* Cores Primárias e Secundárias */
+    --primary-color: #1a1a2e; /* Cor principal escura, usada para fundos primários. */
+    --secondary-color: #16213e; /* Cor secundária escura, talvez para elementos de fundo alternativos. */
+
+    /* Cores de Destaque */
+    --accent-color: #3861fb; /* Cor de destaque principal, usada para botões, links e elementos interativos. */
+    --accent-hover: #2d4ecc; /* Cor de destaque para o estado hover (mouse sobre) de elementos interativos. */
+
+    /* Cores de Texto e Neutras */
+    --text-color: #f0f0f0; /* Cor principal para texto, clara para contraste com fundos escuros. */
+    --neutral: #a0a0a0; /* Cor neutra, geralmente para texto secundário ou bordas sutis. */
+
+    /* Cores de Fundo de Cards e Efeitos Glassmorphism */
+    --card-bg: rgba(255, 255, 255, 0.05); /* Fundo de card semi-transparente claro. */
+    --card-hover: rgba(255, 255, 255, 0.1); /* Fundo de card semi-transparente um pouco mais opaco para estado hover. */
+    --glass-bg: rgba(255, 255, 255, 0.05); /* Fundo para efeito de vidro (glassmorphism), semi-transparente. */
+    --glass-border: rgba(255, 255, 255, 0.1); /* Borda para efeito de vidro, sutilmente mais opaca. */
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Sombra para efeito de vidro, suave e difusa. */
+
+    /* Cores de Feedback */
+    --positive: #00c853; /* Cor para feedback positivo (ex: aumento de preço). */
+    --negative: #ff3d71; /* Cor para feedback negativo (ex: queda de preço). */
+
+    /* Sombras e Bordas */
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards. */
+    --hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada para estado hover. */
+    --border-radius: 25px; /* Raio da borda padrão para arredondar cantos. */
+
+    /* Espaçamento e Transições */
+    --standard-padding: 1.5rem; /* Preenchimento (padding) padrão. 1rem geralmente é 16px. */
+    --transition-speed: 0.3s; /* Velocidade padrão para transições CSS (animações suaves). */
+}
+
+/* Estilos para o corpo (body) da página. */
+body {
+    background-image: url('BG.jpg'); /* Define uma imagem de fundo. 'BG.jpg' deve estar no mesmo diretório ou caminho especificado. */
+    background-size: cover; /* Redimensiona a imagem de fundo para cobrir todo o container, cortando se necessário. */
+    background-position: center; /* Centraliza a imagem de fundo. */
+    background-attachment: fixed; /* Fixa a imagem de fundo, fazendo com que ela não role com o conteúdo da página. */
+    position: relative; /* Define o contexto de posicionamento para elementos filhos posicionados absolutamente. */
+    color: var(--text-color); /* Define a cor do texto padrão usando a variável CSS. */
+    line-height: 1.6; /* Define a altura da linha para melhorar a legibilidade do texto. 1.6 vezes o tamanho da fonte. */
+    min-height: 100vh; /* Garante que o corpo ocupe pelo menos 100% da altura da viewport (janela do navegador). */
+    display: flex; /* Habilita o layout flexbox para o body. */
+    flex-direction: column; /* Organiza os filhos diretos do body (header, main, footer) em uma coluna vertical. */
+}
+
+/* Pseudo-elemento ::before aplicado ao body. Cria uma camada sobre o background-image. */
+body::before {
+    content: ""; /* Necessário para que o pseudo-elemento seja renderizado. */
+    position: fixed; /* Posiciona o overlay de forma fixa em relação à viewport. Alterado de absolute para fixed para cobrir toda a tela mesmo com rolagem. */
+    top: 0; /* Alinha no topo. */
+    left: 0; /* Alinha à esquerda. */
+    width: 100%; /* Largura total da viewport. */
+    height: 100%; /* Altura total da viewport. */
+    background-color: rgba(0, 0, 0, 0.85); /* Cor de fundo preta com 85% de opacidade, escurecendo a imagem de fundo. */
+    z-index: -1; /* Coloca o overlay atrás do conteúdo do body, mas acima da imagem de fundo do body. */
+}
+
+/* Estilos para um container genérico, usado para centralizar conteúdo. */
+.container {
+    width: 90%; /* Define a largura do container como 90% da largura do seu elemento pai. */
+    max-width: 1400px; /* Define uma largura máxima para o container, impedindo que fique excessivamente largo em telas grandes. */
+    margin: 0 auto; /* Centraliza o container horizontalmente (0 para margem superior/inferior, auto para margens laterais). */
+    padding: 0 15px; /* Adiciona preenchimento horizontal de 15px em cada lado. */
+}
+
+/* Estilo específico para o elemento <main> que também usa a classe .container. */
+main.container {
+    flex: 1; /* Faz com que o <main> (conteúdo principal) expanda para ocupar todo o espaço vertical disponível entre o header e o footer. Isso é útil para o "sticky footer". */
+}
+
+/* Cabeçalho */
+/* Estilos para o elemento <header> da página. */
+header {
+    /* background: rgba(42, 113, 208, 0.6); /* Exemplo comentado de cor de fundo semi-transparente. */
+    color: white; /* Define a cor do texto no cabeçalho como branca. */
+    padding: 2rem 0; /* Adiciona preenchimento vertical (2rem em cima e embaixo) e nenhum horizontal. */
+    text-align: center; /* Centraliza o texto dentro do cabeçalho. */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil abaixo do cabeçalho. */
+    backdrop-filter: blur(5px); /* Aplica um efeito de desfoque aos elementos atrás do cabeçalho (efeito "vidro fosco"). */
+    -webkit-backdrop-filter: blur(5px); /* Prefixo para compatibilidade com o navegador Safari. */
+}
+
+/* Estilos para o título <h1> dentro do <header>. */
+header h1 {
+    font-size: 2.5rem; /* Define o tamanho da fonte do título principal. */
+    margin-bottom: 0.5rem; /* Adiciona uma margem inferior para separar do parágrafo. */
+}
+
+/* Estilos para o ícone do Font Awesome com a classe .fa-bitcoin dentro do <h1> do cabeçalho. */
+header h1 .fa-bitcoin {
+    color: #f7931a; /* Define a cor laranja característica do Bitcoin para o ícone. */
+    margin-right: 0.5rem; /* Adiciona uma margem à direita do ícone. */
+    font-size: 1.3em; /* Aumenta o tamanho do ícone em 30% em relação ao tamanho da fonte do <h1>. */
+}
+
+/* Estilos para o parágrafo <p> dentro do <header>. */
+header p {
+    font-size: 1.1rem; /* Define o tamanho da fonte do parágrafo. */
+    opacity: 0.9; /* Torna o parágrafo ligeiramente transparente. */
+}
+
+/* Controles */
+/* Estilos para a seção de controles (barra de pesquisa, botões, etc.). */
+.controls {
+    display: flex; /* Habilita o layout flexbox. */
+    justify-content: space-between; /* Distribui os itens filhos com espaço igual entre eles. */
+    align-items: center; /* Alinha os itens filhos verticalmente ao centro. */
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha se não houver espaço suficiente. */
+    gap: 1rem; /* Define um espaçamento de 1rem entre os itens flex (horizontal e verticalmente, se quebrar linha). */
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente claro. */
+    padding: 1rem; /* Preenchimento interno. */
+    border-radius: var(--border-radius); /* Cantos arredondados usando a variável CSS. */
+    margin: 0 0 2rem 0; /* Margem externa: 0 topo, 0 laterais, 2rem inferior. */
+    position: sticky; /* Faz a barra de controles "grudar" no topo da tela ao rolar a página. */
+    top: 0; /* Define a posição superior para o sticky funcionar (gruda no topo). */
+    z-index: 100; /* Garante que a barra de controles fique acima da maioria dos outros elementos. */
+    backdrop-filter: blur(10px); /* Efeito de desfoque para o fundo (glassmorphism). */
+    -webkit-backdrop-filter: blur(10px); /* Prefixo para Safari. */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada para destacar. */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Borda sutil para o efeito de vidro. */
+}
+
+/* Container para a barra de pesquisa. */
+.search-container {
+    display: flex; /* Alinha o input e o botão de pesquisa na mesma linha. */
+    flex: 1; /* Permite que o container de pesquisa ocupe o espaço disponível (se outros itens no .controls tiverem flexibilidade). */
+    max-width: 500px; /* Largura máxima para o container da pesquisa. */
+}
+
+/* Input de pesquisa. */
+#searchInput {
+    flex: 1; /* Faz o input ocupar o espaço disponível dentro do .search-container. */
+    padding: 0.85rem 1.5rem; /* Preenchimento interno. */
+    border: 1px solid #ddd; /* Borda sólida cinza clara. */
+    border-radius: var(--border-radius) 0 0 var(--border-radius); /* Arredonda os cantos esquerdo superior e esquerdo inferior. */
+    font-size: 1rem; /* Tamanho da fonte. */
+    font-weight: 500; /* Peso da fonte (médio). */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+}
+
+/* Botão de pesquisa. */
+#searchBtn {
+    background-color: var(--accent-color); /* Cor de fundo usando variável. */
+    color: white; /* Cor do texto. */
+    border: none; /* Remove a borda padrão. */
+    padding: 0.85rem 1.5rem; /* Preenchimento interno. */
+    border-radius: 0 var(--border-radius) var(--border-radius) 0; /* Arredonda os cantos direito superior e direito inferior. */
+    cursor: pointer; /* Muda o cursor para uma mãozinha ao passar o mouse. */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo. */
+    font-size: 1rem; /* Tamanho da fonte. */
+    font-weight: 600; /* Peso da fonte (semi-bold). */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+}
+
+/* Estado hover do botão de pesquisa. */
+#searchBtn:hover {
+    background-color: var(--accent-hover); /* Altera a cor de fundo no hover usando variável. */
+}
+
+/* Container para os botões de atualização e seleção de moeda. */
+.refresh-container {
+    display: flex; /* Alinha os itens na mesma linha. */
+    gap: 1rem; /* Espaçamento entre os itens. */
+    align-items: center; /* Adicionado para alinhar itens verticalmente ao centro */
+}
+
+/* Botão de atualizar. */
+#refreshBtn {
+    background-color: var(--accent-color); /* Cor de fundo. */
+    color: white; /* Cor do texto. */
+    border: none; /* Sem borda. */
+    padding: 0.85rem 1.5rem; /* Preenchimento. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    cursor: pointer; /* Cursor de mão. */
+    transition: background-color 0.3s; /* Transição suave. */
+    display: flex; /* Para alinhar o ícone (se houver) e o texto. */
+    align-items: center; /* Alinha verticalmente o conteúdo do botão. */
+    gap: 0.5rem; /* Espaçamento entre o ícone e o texto dentro do botão. */
+    font-size: 1rem; /* Tamanho da fonte. */
+    font-weight: 600; /* Peso da fonte. */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+}
+
+/* Estado hover do botão de atualizar. */
+#refreshBtn:hover {
+    background-color: var(--accent-hover); /* Muda a cor de fundo no hover. */
+}
+
+/* Seletor de moeda (dropdown). */
+#currencySelect {
+    padding: 0.85rem 1.5rem; /* Preenchimento. */
+    border: 1px solid #ddd; /* Borda. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    background-color: white; /* Fundo branco (para contrastar com o texto escuro padrão do select). */
+    font-size: 1rem; /* Tamanho da fonte. */
+    font-weight: 500; /* Peso da fonte. */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+}
+
+/* Grid de Criptomoedas */
+/* Container para a grade de cards de criptomoedas. */
+.crypto-grid {
+    display: grid; /* Habilita o layout de grade CSS. */
+    /* Cria colunas responsivas: cada coluna terá no mínimo 370px e no máximo 1fr (uma fração do espaço disponível).
+       'auto-fill' tenta preencher o espaço com o máximo de colunas possível. */
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr)); /* Aumentado de 300px para 370px. */
+    gap: 1.5rem; /* Espaçamento entre os cards na grade. */
+    margin-bottom: 2rem; /* Margem inferior para separar da próxima seção (ex: rodapé). */
+}
+
+/* Estilo individual para cada card de criptomoeda. */
+.crypto-card {
+    background-color: rgba(255, 255, 255, 0.15); /* Fundo semi-transparente, um pouco mais opaco que o --card-bg. */
+    backdrop-filter: blur(50px); /* Desfoque intenso para o fundo do card. */
+    -webkit-backdrop-filter: blur(10px); /* Prefixo Safari (valor diferente, pode ser um typo ou intenção de menor desfoque no Safari). */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil para o efeito glassmorphism. */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Sombra padrão do card. */
+    padding: 1.5rem; /* Preenchimento interno. */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transições suaves para transformações e sombras (usado no hover). */
+    overflow: hidden; /* Garante que conteúdo que exceda os limites do card (ex: por causa de border-radius) seja cortado. */
+    word-break: break-word; /* Permite que palavras longas quebrem para a próxima linha para evitar overflow horizontal. */
+    color: white; /* Cor do texto dentro do card. */
+}
+
+/* Estado hover do card de criptomoeda. */
+.crypto-card:hover {
+    transform: translateY(-5px); /* Move o card 5 pixels para cima no hover. */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover. */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda ligeiramente mais visível no hover. */
+}
+
+/* Cabeçalho dentro do card (imagem e nome da cripto). */
+.crypto-header {
+    display: flex; /* Alinha a imagem e o nome na mesma linha. */
+    align-items: center; /* Centraliza verticalmente a imagem e o nome. */
+    margin-bottom: 1rem; /* Espaçamento abaixo do cabeçalho do card. */
+}
+
+/* Imagem/logo da criptomoeda. */
+.crypto-image {
+    width: 40px; /* Largura da imagem. */
+    height: 40px; /* Altura da imagem. */
+    margin-right: 1rem; /* Espaçamento à direita da imagem. */
+    border-radius: 50%; /* Torna a imagem circular. */
+}
+
+/* Container para o nome da criptomoeda. */
+.crypto-name {
+    flex: 1; /* Faz o container do nome ocupar o espaço restante no .crypto-header. */
+}
+
+/* Título <h2> com o nome da criptomoeda. */
+.crypto-name h2 {
+    font-size: 1.25rem; /* Tamanho da fonte do nome. */
+    margin-bottom: 0.25rem; /* Pequena margem inferior. */
+    white-space: nowrap; /* Impede que o nome quebre em várias linhas. */
+    overflow: hidden; /* Esconde o texto que excede a largura do container. */
+    text-overflow: ellipsis; /* Adiciona "..." (reticências) se o nome for muito longo para caber. */
+    max-width: 100%; /* Garante que o h2 não ultrapasse a largura do seu pai (.crypto-name). */
+}
+
+/* Preço da criptomoeda. */
+.crypto-price {
+    font-size: 1.5rem; /* Tamanho da fonte para o preço. */
+    font-weight: bold; /* Texto em negrito. */
+    margin: 0.75rem 0; /* Margem vertical. Aumentado de 0.5rem para 0.75rem. */
+    word-break: break-word; /* Quebra valores de preço longos para evitar overflow. */
+}
+
+/* Container para os detalhes adicionais da criptomoeda (ex: market cap, volume). */
+.crypto-details {
+    display: grid; /* Layout de grade para os detalhes. */
+    grid-template-columns: 1fr 1fr; /* Duas colunas de largura igual. */
+    gap: 1rem; /* Espaçamento entre os itens de detalhe. Aumentado de 0.75rem para 1rem. */
+    margin-top: 1.25rem; /* Margem superior. Aumentado de 1rem para 1.25rem. */
+}
+
+/* Item individual de detalhe (label e valor). */
+.detail-item {
+    display: flex; /* Organiza label e valor. */
+    flex-direction: column; /* Coloca o label acima do valor. */
+    overflow: hidden; /* Impede overflow de conteúdo dentro do item. */
+}
+
+/* Rótulo (label) do detalhe (ex: "Market Cap"). */
+.detail-label {
+    font-size: 0.85rem; /* Tamanho da fonte do rótulo. */
+    color: var(--neutral); /* Cor neutra para o rótulo. */
+    margin-bottom: 0.5rem; /* Espaçamento abaixo do rótulo. */
+}
+
+/* Valor do detalhe (ex: "$1 Trilhão"). */
+.detail-value {
+    font-weight: 600; /* Texto semi-bold. */
+    word-break: break-word; /* Quebra valores longos. */
+}
+
+/* Estilo para a variação de preço (com ícone de seta). */
+.price-change {
+    display: flex; /* Alinha o texto e o ícone (se houver). */
+    align-items: center; /* Centraliza verticalmente. */
+    gap: 0.25rem; /* Pequeno espaçamento entre texto e ícone. */
+    font-weight: 600; /* Texto semi-bold. */
+}
+
+/* Classe para variação de preço positiva. */
+.positive {
+    color: var(--positive); /* Cor verde usando variável. */
+}
+
+/* Classe para variação de preço negativa. */
+.negative {
+    color: var(--negative); /* Cor vermelha usando variável. */
+}
+
+/* Indicador de Carregamento */
+/* Container para o indicador de carregamento (spinner). */
+.loading {
+    display: none; /* Inicialmente oculto. Será tornado 'flex' via JavaScript quando o carregamento estiver ativo. */
+    flex-direction: column; /* Organiza o spinner e o texto (se houver) verticalmente. */
+    align-items: center; /* Centraliza horizontalmente. */
+    justify-content: center; /* Centraliza verticalmente. */
+    padding: 3rem 0; /* Preenchimento vertical. */
+}
+
+/* O spinner (animação de carregamento). */
+.spinner {
+    width: 40px; /* Largura do spinner. */
+    height: 40px; /* Altura do spinner. */
+    border: 4px solid rgba(0, 0, 0, 0.1); /* Borda cinza clara, semi-transparente. */
+    border-radius: var(--border-radius); /* Cantos arredondados (Alterado - originalmente era 50% para círculo, agora usa a variável). */
+    border-top-color: var(--accent-color); /* Cor da parte superior da borda, que será animada. */
+    animation: spin 1s ease-in-out infinite; /* Aplica a animação 'spin'. */
+    margin-bottom: 1rem; /* Espaçamento abaixo do spinner. */
+}
+
+/* Animação keyframes para o spinner. */
+@keyframes spin {
+    to {
+        transform: rotate(360deg); /* Gira o elemento 360 graus. */
+    }
+}
+
+/* Container de Erro */
+/* Container para exibir mensagens de erro. */
+.error-container {
+    display: none; /* Inicialmente oculto. Será tornado 'flex' via JavaScript em caso de erro. */
+    flex-direction: column; /* Organiza o ícone, mensagem e botão verticalmente. */
+    align-items: center; /* Centraliza horizontalmente. */
+    justify-content: center; /* Centraliza verticalmente. */
+    padding: 3rem 0; /* Preenchimento vertical. */
+    text-align: center; /* Centraliza o texto da mensagem. */
+}
+
+/* Ícone de erro. */
+.error-container i {
+    font-size: 3rem; /* Tamanho grande para o ícone. */
+    color: var(--negative); /* Cor vermelha de erro. */
+    margin-bottom: 1rem; /* Espaçamento abaixo do ícone. */
+}
+
+/* Elemento que exibirá a mensagem de erro. */
+#errorMessage {
+    margin-bottom: 1.5rem; /* Espaçamento abaixo da mensagem. */
+    font-size: 1.1rem; /* Tamanho da fonte da mensagem. */
+}
+
+/* Botão para tentar novamente após um erro. */
+#retryBtn {
+    background-color: var(--accent-color); /* Cor de fundo. */
+    color: white; /* Cor do texto. */
+    border: none; /* Sem borda. */
+    padding: 0.85rem 2rem; /* Preenchimento. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    cursor: pointer; /* Cursor de mão. */
+    transition: background-color 0.3s; /* Transição suave. */
+    font-size: 1rem; /* Tamanho da fonte. */
+    font-weight: 600; /* Peso da fonte. */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+}
+
+/* Estado hover do botão de tentar novamente. */
+#retryBtn:hover {
+    background-color: var(--accent-hover); /* Muda a cor de fundo no hover. */
+}
+
+/* Rodapé */
+/* Estilos para o elemento <footer> da página. */
+footer {
+    background-color: rgba(0, 0, 0, 0.25); /* Fundo preto semi-transparente. */
+    color: white; /* Cor do texto. */
+    padding: 1.5rem 0; /* Preenchimento vertical. */
+    text-align: center; /* Centraliza o texto. */
+    margin-top: 2rem; /* Margem superior para separar do conteúdo principal. */
+    backdrop-filter: blur(5px); /* Efeito de desfoque para o fundo. */
+    -webkit-backdrop-filter: blur(5px); /* Prefixo Safari. */
+    position: relative; /* Para garantir que o z-index funcione corretamente em relação ao overlay do body. */
+    z-index: 1; /* Garante que o rodapé fique acima do overlay do body. */
+}
+
+/* Estilos para links <a> dentro do rodapé. */
+footer a {
+    color: var(--accent-color); /* Cor de destaque para links. */
+    text-decoration: none; /* Remove o sublinhado padrão dos links. */
+}
+
+/* Estado hover dos links no rodapé. */
+footer a:hover {
+    text-decoration: underline; /* Adiciona sublinhado no hover. */
+}
+
+/* Estilos para o Modal de Gráficos estilo TradingView */
+/* O modal em si, que cobre a tela inteira. */
+.chart-modal {
+    display: none; /* Inicialmente oculto. Será tornado 'block' ou 'flex' via JavaScript para exibir. */
+    position: fixed; /* Posicionamento fixo em relação à viewport. */
+    z-index: 1000; /* Garante que o modal fique acima de outros elementos da página. */
+    left: 0; /* Alinha à esquerda. */
+    top: 0; /* Alinha ao topo. */
+    width: 100%; /* Largura total da viewport. */
+    height: 100%; /* Altura total da viewport. */
+    overflow: auto; /* Adiciona barra de rolagem se o conteúdo do modal exceder a altura. */
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo escuro semi-transparente para o overlay do modal. */
+}
+
+/* Conteúdo dentro do modal TradingView. */
+.chart-modal-content {
+    background-color: #1e222d; /* Cor de fundo escura para o conteúdo do modal, estilo TradingView. */
+    color: #d1d4dc; /* Cor de texto clara para contraste. */
+    margin: 2% auto; /* Margem superior/inferior de 2% da altura da viewport, centralizado horizontalmente. */
+    padding: 20px; /* Preenchimento interno. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    width: 95%; /* Largura de 95% do pai (neste caso, .chart-modal, efetivamente 95% da viewport). */
+    max-width: 1400px; /* Largura máxima. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para o modal. */
+    height: 90vh; /* Altura de 90% da viewport. */
+    display: flex; /* Habilita flexbox. */
+    flex-direction: column; /* Organiza os filhos (header, chart-container, info) verticalmente. */
+}
+
+/* Cabeçalho específico do modal TradingView. */
+.chart-header { /* Applies to TradingView modal header */
+    display: flex; /* Alinha itens na mesma linha. */
+    justify-content: space-between; /* Espaça o título e o botão de fechar/controles. */
+    align-items: center; /* Alinha verticalmente ao centro. */
+    margin-bottom: 15px; /* Margem inferior. */
+    flex-wrap: wrap; /* Permite quebra de linha em telas menores. */
+    gap: 10px; /* Espaçamento entre itens caso haja quebra de linha. */
+}
+
+/* Botão de fechar o modal TradingView. */
+.chart-close {
+    color: #d1d4dc; /* Cor do ícone de fechar. */
+    font-size: 28px; /* Tamanho do ícone. */
+    font-weight: bold; /* Negrito. */
+    cursor: pointer; /* Cursor de mão. */
+    margin-left: 20px; /* Margem à esquerda para separar de outros elementos no header. */
+}
+
+/* Estado hover do botão de fechar. */
+.chart-close:hover {
+    color: #ffffff; /* Cor mais clara no hover. */
+}
+
+/* Container do gráfico dentro do modal TradingView. */
+.chart-modal .chart-container { /* .chart-container specific to TradingView modal */
+    flex: 1; /* Faz o container do gráfico ocupar o espaço vertical restante no .chart-modal-content. */
+    width: 100%; /* Largura total. */
+    position: relative; /* Para posicionamento de elementos filhos (ex: legenda, ferramentas). */
+    background-color: #131722; /* Cor de fundo escura, típica de gráficos de trading. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    padding: 10px; /* Preenchimento interno. */
+}
+
+/* Controles (selects, botões) dentro do cabeçalho do modal TradingView. */
+.chart-modal .chart-header .chart-controls { /* .chart-controls specific to TradingView modal header */
+    display: flex; /* Alinha controles na mesma linha. */
+    gap: 10px; /* Espaçamento entre controles. */
+    align-items: center; /* Alinha verticalmente. */
+    position: relative; /* Para posicionamento do .indicator-menu. */
+}
+
+/* Estilos para selects e botões dentro dos controles do cabeçalho do modal TradingView. */
+.chart-modal .chart-header .chart-controls select,
+.chart-modal .chart-header .chart-controls button {
+    padding: 0.85rem 1.5rem; /* Preenchimento. */
+    border: 1px solid #363a45; /* Borda sutil. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    background-color: #2a2e39; /* Fundo escuro para os controles. */
+    color: #d1d4dc; /* Cor do texto. */
+    font-size: 0.95rem; /* Tamanho da fonte. */
+    font-weight: 500; /* Peso da fonte. */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+    cursor: pointer; /* Cursor de mão. */
+}
+
+/* Estado hover para selects e botões nos controles do modal TradingView. */
+.chart-modal .chart-header .chart-controls select:hover,
+.chart-modal .chart-header .chart-controls button:hover {
+    background-color: #363a45; /* Fundo ligeiramente diferente no hover. */
+}
+
+/* Título do gráfico no cabeçalho do modal TradingView. */
+#chartTitle { /* Used in TradingView modal header */
+    font-size: 1.2rem; /* Tamanho da fonte. */
+    margin: 0; /* Remove margens padrão. */
+    color: #d1d4dc; /* Cor do texto. */
+}
+
+/* Menu de indicadores, específico para os controles do cabeçalho do modal TradingView. */
+.chart-modal .chart-header .chart-controls .indicator-menu { /* .indicator-menu specific to TradingView modal header controls */
+    display: none; /* Inicialmente oculto. */
+    position: absolute; /* Posicionado em relação ao .chart-controls. */
+    top: 100%; /* Abaixo do botão/elemento que o ativa. */
+    right: 0; /* Alinhado à direita do .chart-controls. */
+    background-color: #2a2e39; /* Fundo escuro. */
+    border: 1px solid #363a45; /* Borda. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    padding: 10px; /* Preenchimento. */
+    z-index: 10; /* Para ficar acima de outros elementos no header. */
+    min-width: 200px; /* Largura mínima. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra. */
+}
+
+/* Opção individual no menu de indicadores do modal TradingView. */
+.chart-modal .chart-header .chart-controls .indicator-option { /* Scoped to TradingView modal */
+    margin: 8px 0; /* Margem vertical. */
+    display: flex; /* Para alinhar checkbox e label. */
+    align-items: center; /* Alinha verticalmente. */
+}
+
+/* Input (checkbox) dentro da opção de indicador no modal TradingView. */
+.chart-modal .chart-header .chart-controls .indicator-option input { /* Scoped to TradingView modal */
+    margin-right: 8px; /* Espaçamento à direita do checkbox. */
+}
+
+/* Container para informações/estatísticas abaixo do gráfico no modal TradingView. */
+.chart-info { /* Appears to be for TradingView modal */
+    margin-top: 15px; /* Margem superior, separando do gráfico. */
+    padding: 10px; /* Preenchimento. */
+    background-color: #131722; /* Fundo escuro. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    font-size: 0.9rem; /* Tamanho da fonte. */
+}
+
+/* Container para as estatísticas individuais no modal TradingView. */
+#chartStats { /* Appears to be for TradingView modal */
+    display: flex; /* Alinha estatísticas na mesma linha. */
+    flex-wrap: wrap; /* Permite quebra de linha se houver muitas estatísticas. */
+    gap: 15px; /* Espaçamento entre itens de estatística. */
+}
+
+/* Item de estatística individual no modal TradingView. */
+.stat-item { /* Appears to be for TradingView modal */
+    display: flex; /* Organiza label e valor. */
+    flex-direction: column; /* Coloca o label acima do valor. */
+}
+
+/* Rótulo da estatística no modal TradingView. */
+.stat-label { /* Appears to be for TradingView modal */
+    font-size: 0.8rem; /* Tamanho da fonte. */
+    color: #787b86; /* Cor de texto sutil. */
+}
+
+/* Valor da estatística no modal TradingView (e também usado em .detail-value nos cards). */
+.stat-value { /* Appears to be for TradingView modal stat value AND .detail-value */
+    font-weight: 600; /* Texto semi-bold. */
+}
+
+
+/* Botão de gráfico nos cards (para abrir o modal). */
+.chart-btn {
+    width: 100%; /* Ocupa toda a largura do card. */
+    padding: 0.85rem 1.5rem; /* Preenchimento. */
+    margin-top: 15px; /* Margem superior, separando dos detalhes do card. */
+    background-color: var(--accent-color); /* Cor de fundo de destaque. */
+    color: white; /* Cor do texto. */
+    border: none; /* Sem borda. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    cursor: pointer; /* Cursor de mão. */
+    font-size: 1rem; /* Tamanho da fonte. */
+    font-weight: 600; /* Peso da fonte. */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+    transition: background-color 0.3s; /* Transição suave. */
+    display: flex; /* Para alinhar ícone e texto. */
+    align-items: center; /* Alinha verticalmente. */
+    justify-content: center; /* Centraliza horizontalmente. */
+    gap: 8px; /* Espaçamento entre ícone e texto. */
+}
+
+/* Estado hover do botão de gráfico nos cards. */
+.chart-btn:hover {
+    background-color: var(--accent-hover); /* Cor de fundo no hover. */
+}
+
+/* Modal de gráficos genérico (não TradingView) */
+/* O modal genérico em si. */
+.modal { /* Generic modal */
+    display: none; /* Inicialmente oculto. */
+    position: fixed; /* Posição fixa. */
+    top: 0; /* Alinha ao topo. */
+    left: 0; /* Alinha à esquerda. */
+    width: 100%; /* Largura total. */
+    height: 100%; /* Altura total. */
+    background-color: rgba(0, 0, 0, 0.7); /* Overlay escuro semi-transparente. */
+    z-index: 1000; /* Acima de outros conteúdos. */
+    justify-content: center; /* Centraliza o .modal-content horizontalmente (se .modal for display: flex). */
+    align-items: center; /* Centraliza o .modal-content verticalmente (se .modal for display: flex). */
+    /* Para que justify-content e align-items funcionem, o display: flex deve ser ativado via JS quando o modal for mostrado. */
+}
+
+/* Conteúdo do modal genérico. */
+.modal-content { /* Generic modal content */
+    background-color: #1e2026; /* Fundo escuro para o conteúdo. */
+    width: 90%; /* Largura. */
+    max-width: 1200px; /* Largura máxima. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra. */
+    overflow: hidden; /* Esconde conteúdo que transborda (ex: se o gráfico for muito alto). */
+}
+
+/* Cabeçalho do modal genérico. */
+.modal-header { /* Generic modal header */
+    display: flex; /* Alinha título e botão de fechar/controles. */
+    justify-content: space-between; /* Espaça os itens. */
+    align-items: center; /* Alinha verticalmente. */
+    padding: 1.5rem 2rem; /* Preenchimento. */
+    border-bottom: 1px solid #2a2e39; /* Linha divisória abaixo do cabeçalho. */
+}
+
+/* Título <h2> no cabeçalho do modal genérico. */
+.modal-header h2 { /* Generic modal title */
+    margin: 0; /* Remove margens padrão. */
+    color: #f0f0f0; /* Cor do texto clara. */
+    font-size: 1.5rem; /* Tamanho da fonte. */
+}
+
+/* Controles (selects) no cabeçalho do modal genérico. */
+.modal .modal-header .chart-controls { /* .chart-controls for generic modal header */
+    display: flex; /* Alinha na mesma linha. */
+    gap: 10px; /* Espaçamento entre controles. */
+    align-items: center; /* Alinha verticalmente. */
+    position: relative; /* Para posicionamento de menus filhos, se houver. */
+}
+
+/* Selects dentro dos controles do cabeçalho do modal genérico. */
+.modal .modal-header .chart-controls select {
+    padding: 8px 12px; /* Preenchimento. */
+    background-color: #2a2e39; /* Fundo escuro. */
+    color: #f0f0f0; /* Cor do texto. */
+    border: none; /* Sem borda. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    cursor: pointer; /* Cursor de mão. */
+}
+
+/* Botão de fechar do modal genérico. */
+.close-btn { /* Generic modal close button */
+    background: none; /* Sem fundo. */
+    border: none; /* Sem borda. */
+    color: #f0f0f0; /* Cor do ícone/texto. */
+    font-size: 1.5rem; /* Tamanho. */
+    cursor: pointer; /* Cursor de mão. */
+    padding: 0 5px; /* Pequeno preenchimento para facilitar o clique. */
+}
+
+/* Container do gráfico dentro do modal genérico. */
+.modal .chart-container { /* .chart-container for generic modal */
+    display: flex; /* Habilita flexbox. */
+    flex-direction: column; /* Organiza itens verticalmente (ex: gráfico e talvez controles abaixo). */
+    padding: 1.5rem; /* Preenchimento. */
+    height: 500px; /* Altura fixa para o container do gráfico. */
+    position: relative; /* Para posicionamento de elementos filhos como o menu de indicadores. */
+}
+
+/* Botão de "Indicadores" dentro do chart-container do modal genérico. */
+.indicators-btn { /* For generic modal's chart-container */
+    padding: 0.85rem 1.5rem; /* Preenchimento. */
+    background-color: #2a2e39; /* Fundo escuro. */
+    color: #f0f0f0; /* Cor do texto. */
+    border: none; /* Sem borda. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    cursor: pointer; /* Cursor de mão. */
+    display: flex; /* Para alinhar ícone e texto. */
+    align-items: center; /* Alinha verticalmente. */
+    gap: 5px; /* Espaçamento entre ícone e texto. */
+    font-size: 0.95rem; /* Tamanho da fonte. */
+    font-weight: 500; /* Peso da fonte. */
+    letter-spacing: 0.5px; /* Espaçamento entre letras. */
+    /* Este botão pode estar posicionado dentro do .chart-container ou adjacente a ele. */
+}
+
+/* Menu de indicadores para o modal genérico (dentro de .chart-container). */
+.modal .chart-container .indicators-menu { /* .indicators-menu for generic modal's chart-container */
+    display: none; /* Inicialmente oculto. */
+    position: absolute; /* Posicionado em relação ao .chart-container. */
+    top: 100%; /* Posicionado abaixo do elemento que o ativa (se o ativador estiver no topo do container) ou ajustado. */
+    /* right: 50px;  Esta regra pode precisar de ajuste dependendo de onde o botão ativador está.
+                      Se o botão estiver no topo, 'top' e 'left' ou 'right' seriam mais comuns. */
+    right: 50px; /* Alinhado a 50px da borda direita do .chart-container. */
+    background-color: #2a2e39; /* Fundo escuro. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    padding: 1.5rem; /* Preenchimento. */
+    z-index: 10; /* Acima do gráfico. */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra. */
+}
+
+/* Opção individual no menu de indicadores do modal genérico. */
+.modal .chart-container .indicator-option { /* Scoped to generic modal */
+    display: flex; /* Alinha checkbox e label. */
+    align-items: center; /* Alinha verticalmente. */
+    gap: 8px; /* Espaçamento. */
+    margin-bottom: 8px; /* Margem inferior. */
+    color: #f0f0f0; /* Cor do texto. */
+}
+
+/* Estilo para mensagem de erro dentro do container do gráfico (ambos os modals). */
+.chart-error { /* Generic chart error message styling */
+    display: flex; /* Para centralizar o texto. */
+    justify-content: center; /* Centraliza horizontalmente. */
+    align-items: center; /* Centraliza verticalmente. */
+    height: 100%; /* Ocupa toda a altura do container do gráfico. */
+    color: #f0f0f0; /* Cor do texto. */
+    text-align: center; /* Centraliza o texto. */
+    font-size: 1.1rem; /* Tamanho da fonte. */
+}
+
+
+/* Controles de Zoom (geralmente para gráficos). */
+.zoom-controls {
+    position: absolute; /* Posicionado em relação ao container pai (provavelmente .chart-container). */
+    top: 10px; /* 10px do topo do pai. */
+    left: 10px; /* 10px da esquerda do pai. */
+    display: flex; /* Alinha botões de zoom na mesma linha. */
+    gap: 5px; /* Espaçamento entre botões. */
+    z-index: 10; /* Para ficar acima do gráfico, mas abaixo de menus/modais. */
+}
+
+/* Botões individuais de controle de zoom. */
+.zoom-controls button {
+    background-color: rgba(42, 46, 57, 0.7); /* Fundo escuro semi-transparente. */
+    border: 1px solid rgba(121, 151, 181, 0.5); /* Borda sutil. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    color: #fff; /* Cor do ícone/texto. */
+    cursor: pointer; /* Cursor de mão. */
+    font-size: 1rem; /* Tamanho da fonte/ícone. */
+    font-weight: 600; /* Peso da fonte. */
+    height: 35px; /* Altura. */
+    width: 35px; /* Largura. */
+    display: flex; /* Para centralizar o conteúdo do botão. */
+    align-items: center; /* Centraliza verticalmente. */
+    justify-content: center; /* Centraliza horizontalmente. */
+    transition: all 0.2s ease; /* Transição suave para todas as propriedades. */
+    backdrop-filter: blur(5px); /* Efeito de vidro fosco sutil. */
+}
+
+/* Estado hover dos botões de zoom. */
+.zoom-controls button:hover {
+    background-color: rgba(42, 46, 57, 0.9); /* Fundo mais opaco no hover. */
+    border-color: rgba(121, 151, 181, 0.8); /* Borda mais visível no hover. */
+}
+
+/* Ajustes para os cards na sidebar (se houver uma lista de criptos em uma sidebar). */
+/* Estilo para cards dentro de um elemento com classe .crypto-list (presumivelmente uma sidebar ou lista). */
+.crypto-list .crypto-card {
+    padding: 1.5rem; /* Preenchimento. (Nota: este valor já é definido em .crypto-card, pode ser redundante ou para garantir). */
+    cursor: pointer; /* Cursor de mão, indicando que o card é clicável (talvez para exibir detalhes). */
+    transition: all 0.3s ease; /* Transição suave. */
+    border: 2px solid transparent; /* Borda transparente, talvez para um efeito de seleção no hover/active. */
+    margin-bottom: 0.5rem; /* Adicionado espaçamento entre cards na lista. */
+}
+
+/* Ajuste no preço dentro dos cards da .crypto-list. */
+.crypto-list .crypto-card .crypto-price {
+    font-size: 1.2rem; /* Tamanho de fonte ligeiramente menor para o preço. */
+    margin: 0.5rem 0; /* Margem vertical. */
+    white-space: nowrap; /* Impede quebra de linha. */
+    overflow: hidden; /* Esconde o excesso. */
+    text-overflow: ellipsis; /* Adiciona "..." para valores longos. */
+}
+
+/* Ajuste na variação de preço dentro dos cards da .crypto-list. */
+.crypto-list .crypto-card .price-change {
+    white-space: nowrap; /* Impede quebra de linha. */
+    overflow: hidden; /* Esconde o excesso. */
+    text-overflow: ellipsis; /* Adiciona "..." para valores longos. */
+}
+
+/* Ajustes para a exibição de informações da cripto (talvez uma seção de detalhes dedicada). */
+.crypto-info-display {
+    background-color: var(--card-bg); /* Fundo de card semi-transparente. */
+    border-radius: var(--border-radius); /* Cantos arredondados. */
+    padding: 2rem; /* Preenchimento maior. */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra muito sutil. */
+}
+
+/* Item de informação individual dentro de .crypto-info-display. */
+.info-item {
+    display: flex; /* Alinha label e valor na mesma linha. */
+    justify-content: space-between; /* Coloca label à esquerda e valor à direita. */
+    align-items: center; /* Alinha verticalmente ao centro. */
+    padding: 1rem 0; /* Preenchimento vertical. */
+    border-bottom: 1px solid #eee; /* Linha divisória clara. (Nota: #eee é uma cor clara, pode não contrastar bem com --text-color se o fundo for --card-bg escuro). */
+}
+
+/* Valor da informação em .crypto-info-display. */
+.info-value {
+    font-weight: bold; /* Texto em negrito. */
+    color: var(--text-color); /* Cor do texto principal. */
+    word-break: break-word; /* Quebra palavras longas. */
+    max-width: 60%; /* Limita a largura para evitar que empurre o label em excesso. */
+    text-align: right; /* Alinha o texto do valor à direita. */
+}
+
+
+/* Responsividade */
+/* Ajustes para telas com largura máxima de 1200px. */
+@media (max-width: 1200px) {
+    .crypto-grid {
+        /* Reduz o tamanho mínimo das colunas na grade para melhor encaixe. */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    header h1 {
+        font-size: 2.2rem; /* Reduz o tamanho do título principal. */
+    }
+
+    header p {
+        font-size: 1rem; /* Reduz o tamanho do parágrafo no cabeçalho. */
+    }
+}
+
+/* Ajustes para telas com largura máxima de 992px (tablets e telas menores). */
+@media (max-width: 992px) {
+    .crypto-grid {
+        /* Reduz ainda mais o tamanho mínimo das colunas e o espaçamento. */
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.2rem; /* Espaçamento reduzido na grade. */
+    }
+
+    .crypto-card {
+        padding: 1.2rem; /* Reduz o preenchimento dos cards. */
+    }
+
+    .crypto-price {
+        font-size: 1.3rem; /* Reduz o tamanho da fonte do preço. */
+    }
+
+    /* Ajusta a altura do container do gráfico em ambos os tipos de modal. */
+    .modal .chart-container, /* Generic modal chart container height */
+    .chart-modal .chart-container { /* TradingView modal chart container height (though it's flex:1 for TV, this sets a fixed height) */
+        height: 400px; /* Reduz a altura do container do gráfico. */
+    }
+}
+
+/* Ajustes para telas com largura máxima de 768px (tablets em modo retrato e celulares grandes). */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column; /* Empilha os controles verticalmente. */
+        align-items: stretch; /* Faz os itens esticarem para preencher a largura. */
+    }
+
+    .search-container {
+        max-width: 100%; /* Permite que a busca ocupe toda a largura. */
+    }
+
+    .refresh-container {
+        width: 100%; /* Ocupa toda a largura. */
+        flex-wrap: wrap; /* Permite quebra de linha se necessário. */
+        margin-top: 0.8rem; /* Adiciona margem superior. */
+    }
+
+    #refreshBtn {
+        flex: 1; /* Faz o botão de refresh ocupar o espaço disponível (se houver outros itens flexíveis). */
+    }
+
+    .crypto-grid {
+        grid-template-columns: 1fr; /* Uma única coluna para os cards. */
+    }
+
+    header h1 {
+        font-size: 1.8rem; /* Reduz mais o título. */
+    }
+
+    header p {
+        font-size: 0.9rem; /* Reduz mais o parágrafo do cabeçalho. */
+    }
+
+    .chart-header { /* Affects TradingView modal header */
+        flex-direction: column; /* Empilha os itens do cabeçalho do modal TradingView. */
+        align-items: flex-start; /* Alinha à esquerda. */
+    }
+
+    /* Controles dentro dos cabeçalhos de ambos os modais. */
+    .chart-modal .chart-header .chart-controls,
+    .modal .modal-header .chart-controls {
+        width: 100%; /* Ocupa toda a largura. */
+        overflow-x: auto; /* Adiciona rolagem horizontal se os controles não couberem. */
+        padding-bottom: 5px; /* Espaço para a barra de rolagem. */
+        flex-wrap: nowrap; /* Impede a quebra de linha dos controles, forçando a rolagem. */
+        justify-content: flex-start; /* Alinha os controles à esquerda. */
+    }
+
+    /* Conteúdo de ambos os modais. */
+    .chart-modal-content,
+    .modal-content {
+        height: 95vh; /* Altura maior para ocupar mais da tela pequena. */
+        width: 98%; /* Largura maior. */
+        margin: 1% auto; /* Margem menor. */
+        padding: 10px; /* Preenchimento menor. */
+    }
+
+    .modal-header { /* Affects generic modal header */
+        padding: 1rem; /* Preenchimento menor para o cabeçalho do modal genérico. */
+    }
+
+    .modal-header h2 { /* Affects generic modal title */
+        font-size: 1.2rem; /* Tamanho menor para o título do modal genérico. */
+    }
+
+    /* Selects e botões nos controles de ambos os modais, e o botão de indicadores do modal genérico. */
+    .chart-modal .chart-header .chart-controls select,
+    .chart-modal .chart-header .chart-controls button,
+    .modal .modal-header .chart-controls select,
+    .indicators-btn { /* For generic modal */
+        padding: 0.6rem 1rem; /* Preenchimento menor. */
+        font-size: 0.85rem; /* Fonte menor. */
+    }
+
+    /* Menus de indicadores para ambos os modais. */
+    .chart-modal .chart-header .chart-controls .indicator-menu,
+    .modal .chart-container .indicators-menu {
+        right: 0; /* Alinha à direita. */
+        width: 200px; /* Largura fixa (pode precisar de ajuste se os botões ativadores mudarem de posição). */
+    }
+
+    #chartStats { /* For TradingView modal info */
+        flex-direction: column; /* Empilha os itens de estatística. */
+        gap: 10px; /* Espaçamento. */
+    }
+
+    .stat-item { /* For TradingView modal info */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Adiciona linha divisória. */
+        padding-bottom: 8px; /* Espaçamento abaixo do item. */
+    }
+}
+
+/* Responsividade para o modal de gráficos (Continua a partir de 768px, focando em telas ainda menores). */
+@media (max-width: 576px) {
+    .container {
+        width: 95%; /* Largura do container principal. */
+        padding: 0 10px; /* Preenchimento horizontal. */
+    }
+
+    header {
+        padding: 1.5rem 0; /* Preenchimento do cabeçalho. */
+    }
+
+    header h1 {
+        font-size: 1.6rem; /* Tamanho do título. */
+    }
+
+    .controls {
+        padding: 0.8rem; /* Preenchimento dos controles. */
+        margin-bottom: 1.5rem; /* Margem inferior. */
+    }
+
+    #searchInput {
+        padding: 0.7rem 1rem; /* Preenchimento do input de busca. */
+        font-size: 0.9rem; /* Fonte do input. */
+    }
+
+    #searchBtn {
+        padding: 0.7rem 1rem; /* Preenchimento do botão de busca. */
+        font-size: 0.9rem; /* Fonte do botão. */
+    }
+
+    #refreshBtn,
+    #currencySelect {
+        padding: 0.7rem 1rem; /* Preenchimento do botão de refresh e select de moeda. */
+        font-size: 0.9rem; /* Fonte. */
+    }
+
+    .refresh-container {
+        flex-direction: column; /* Empilha o botão de refresh e o select. */
+        gap: 0.5rem; /* Espaçamento menor. */
+    }
+
+    #currencySelect {
+        width: 100%; /* Select de moeda ocupa toda a largura. */
+    }
+
+    .crypto-card {
+        padding: 1rem; /* Preenchimento dos cards. */
+    }
+
+    .crypto-header {
+        margin-bottom: 0.8rem; /* Margem abaixo do cabeçalho do card. */
+    }
+
+    .crypto-image {
+        width: 35px; /* Tamanho da imagem da cripto. */
+        height: 35px;
+    }
+
+    .crypto-name h2 {
+        font-size: 1.1rem; /* Tamanho do nome da cripto. */
+    }
+
+    .crypto-price {
+        font-size: 1.2rem; /* Tamanho do preço. */
+        margin: 0.5rem 0; /* Margem do preço. */
+    }
+
+    .crypto-details {
+        gap: 0.8rem; /* Espaçamento nos detalhes do card. */
+        margin-top: 1rem; /* Margem superior dos detalhes. */
+    }
+
+    .detail-label {
+        font-size: 0.8rem; /* Tamanho do rótulo do detalhe. */
+    }
+
+    .detail-value { /* This also affects .stat-value if not overridden */
+        font-size: 0.9rem; /* Tamanho do valor do detalhe. */
+    }
+
+    .chart-btn {
+        padding: 0.7rem 1rem; /* Preenchimento do botão de gráfico no card. */
+        font-size: 0.9rem; /* Fonte do botão. */
+    }
+
+    /* Altura e preenchimento dos containers de gráfico nos modais. */
+    .modal .chart-container, /* Generic modal chart container height */
+    .chart-modal .chart-container { /* TradingView modal chart container height */
+        height: 350px; /* Reduz a altura. */
+        padding: 1rem; /* Reduz o preenchimento (Nota: TradingView pode ter padding específico, isso pode sobrescrever). */
+    }
+
+    footer {
+        padding: 1rem 0; /* Preenchimento do rodapé. */
+        font-size: 0.9rem; /* Fonte do rodapé. */
+    }
+
+    /* Menus de indicadores em ambos os modais. */
+    .chart-modal .chart-header .chart-controls .indicator-menu,
+    .modal .chart-container .indicators-menu {
+        padding: 1rem; /* Preenchimento menor. */
+        width: 180px; /* Largura menor. */
+    }
+
+    /* Opções de indicadores em ambos os modais. */
+    .chart-modal .chart-header .chart-controls .indicator-option,
+    .modal .chart-container .indicator-option {
+        font-size: 0.9rem; /* Fonte menor. */
+    }
+
+    .zoom-controls button {
+        height: 30px; /* Altura dos botões de zoom. */
+        width: 30px; /* Largura. */
+        font-size: 0.9rem; /* Fonte/ícone. */
+    }
+}
+
+/* Ajustes para telas com largura máxima de 400px (celulares menores). */
+@media (max-width: 400px) {
+    header h1 {
+        font-size: 1.4rem; /* Reduz drasticamente o título. */
+    }
+
+    .crypto-image {
+        width: 30px; /* Imagem da cripto ainda menor. */
+        height: 30px;
+    }
+
+    .crypto-name h2 {
+        font-size: 1rem; /* Nome da cripto menor. */
+    }
+
+    .crypto-price {
+        font-size: 1.1rem; /* Preço menor. */
+    }
+
+    .crypto-details {
+        grid-template-columns: 1fr; /* Uma única coluna para os detalhes do card. */
+    }
+
+    /* Altura dos containers de gráfico nos modais. */
+    .modal .chart-container, /* Generic modal chart container height */
+    .chart-modal .chart-container { /* TradingView modal chart container height */
+        height: 300px; /* Altura ainda menor. */
+    }
+
+    /* Controles de gráfico em ambos os modais. */
+    .chart-modal .chart-header .chart-controls,
+    .modal .modal-header .chart-controls {
+        gap: 5px; /* Espaçamento mínimo entre controles. */
+    }
+
+    /* Selects e botões nos controles de gráfico e botão de indicadores genérico. */
+    .chart-modal .chart-header .chart-controls select,
+    .chart-modal .chart-header .chart-controls button,
+    .modal .modal-header .chart-controls select,
+    .indicators-btn { /* For generic modal */
+        padding: 0.5rem 0.8rem; /* Preenchimento mínimo. */
+        font-size: 0.8rem; /* Fonte mínima. */
+    }
+}
+
+/* Ajustes para telas muito pequenas (largura máxima de 320px). */
+@media (max-width: 320px) {
+    header h1 {
+        font-size: 1.3rem; /* Título muito pequeno. */
+    }
+
+    header p {
+        font-size: 0.8rem; /* Parágrafo do cabeçalho muito pequeno. */
+    }
+
+    /* Inputs, botões e selects nos controles principais. */
+    #searchInput,
+    #searchBtn,
+    #refreshBtn,
+    #currencySelect {
+        padding: 0.6rem 0.8rem; /* Preenchimento muito pequeno. */
+        font-size: 0.8rem; /* Fonte muito pequena. */
+    }
+
+    .crypto-card {
+        padding: 0.8rem; /* Preenchimento mínimo para os cards. */
+    }
+
+    /* Altura dos containers de gráfico nos modais. */
+    .modal .chart-container, /* Generic modal chart container height */
+    .chart-modal .chart-container { /* TradingView modal chart container height */
+        height: 250px; /* Altura muito reduzida. */
+    }
+}
+
+/* Ajustes para telas grandes (largura mínima de 1600px). */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1600px; /* Aumenta a largura máxima do container principal. */
+    }
+
+    .crypto-grid {
+        /* Permite colunas um pouco mais largas na grade. */
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+
+    header h1 {
+        font-size: 3rem; /* Título maior para telas grandes. */
+    }
+
+    header p {
+        font-size: 1.3rem; /* Parágrafo do cabeçalho maior. */
+    }
+}
+
+/* Ajustes para orientação paisagem em dispositivos móveis (altura máxima de 500px). */
+@media (max-height: 500px) and (orientation: landscape) {
+    header {
+        padding: 1rem 0; /* Reduz o preenchimento do cabeçalho. */
+    }
+
+    header h1 {
+        font-size: 1.5rem; /* Reduz o tamanho do título. */
+        margin-bottom: 0.2rem; /* Reduz a margem inferior do título. */
+    }
+
+    header p {
+        font-size: 0.8rem; /* Reduz o tamanho do parágrafo do cabeçalho. */
+    }
+
+    .controls {
+        margin-bottom: 1rem; /* Reduz a margem inferior dos controles. */
+    }
+
+    /* Altura dos containers de gráfico nos modais em paisagem. */
+    .modal .chart-container, /* Generic modal chart container height */
+    .chart-modal .chart-container { /* TradingView modal chart container height */
+        height: 200px; /* Altura drasticamente reduzida. Pode ser muito pequeno dependendo do conteúdo. */
+    }
+
+    /* Conteúdo dos modais em paisagem. */
+    .modal-content,
+    .chart-modal-content {
+        height: 90vh; /* Mantém a altura relativa à viewport, o que pode ser bom para aproveitar a largura. */
+    }
+
+    footer {
+        padding: 0.8rem 0; /* Reduz o preenchimento do rodapé. */
+    }
+}
