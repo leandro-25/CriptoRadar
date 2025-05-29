@@ -47,7 +47,7 @@ projetoFinal/
    ```
 3. Abra o arquivo `index.html` em seu navegador preferido.
 
-## ✉️ Alnos
+## ✉️ Alunos
 
 Leandro Mariano Jr
 
