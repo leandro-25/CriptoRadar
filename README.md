@@ -39,7 +39,7 @@ projetoFinal/
 
 1. Clone o repositório:
    ```bash
-   git clone [URL_DO_REPOSITÓRIO]
+   git clone https://github.com/leandro-25/CriptoRadar/
    ```
 2. Navegue até o diretório do projeto:
    ```bash
