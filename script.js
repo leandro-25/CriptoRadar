@@ -147,7 +147,7 @@ function setupEventListeners() {
         }
     });
     
-    // Removido o event listener para o checkbox de volume
+    
 }
 
 /**
